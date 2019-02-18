@@ -3,7 +3,11 @@
   "name": "object-detection",
   "alias": ["object-detection.now.sh", "object-detection.sequence.work"],
   "builds": [
-    { "src": "api/index.js", "use": "@now/node" },
+    {
+      "src": "api/index.js",
+      "use": "@now/node",
+      "config": { "maxLambdaSize": "30mb" }
+    },
     { "src": "app/package.json", "use": "@now/static-build" }
   ],
   "routes": [
