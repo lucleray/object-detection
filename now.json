@@ -2,5 +2,15 @@
   "version": 2,
   "name": "object-detection",
   "alias": ["object-detection.now.sh", "object-detection.sequence.work"],
-  "builds": [{ "src": "api/predict.js", "use": "@now/node" }]
+  "builds": [
+    { "src": "api/index.js", "use": "@now/node" },
+    { "src": "app/package.json", "use": "@now/static-build" }
+  ],
+  "routes": [
+    { "src": "/api.*", "dest": "/api/index.js" },
+    { "src": "(.*)", "dest": "/app$1" }
+  ],
+  "env": {
+    "TF_MODEL_URL": "https://storage.googleapis.com/tfjs-models/savedmodel/ssdlite_mobilenet_v2"
+  }
 }

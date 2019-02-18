@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "now-build": "next build && next export -o dist"
+  },
+  "dependencies": {
+    "next": "^8.0.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-dropzone": "^8.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0"
+  }
+}

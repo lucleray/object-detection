@@ -4,15 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "micro-dev predict.js -p 3001"
+    "dev": "micro-dev -p 3001 --dotenv ../.env"
   },
   "dependencies": {
-    "@tensorflow/tfjs": "^0.15.2",
     "@tensorflow/tfjs-node": "^0.3.0",
     "canvas": "^2.3.1",
     "content-type": "^1.0.4",
     "jimp": "^0.6.0",
     "micro": "^9.3.3",
+    "micro-cors": "^0.1.1",
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {

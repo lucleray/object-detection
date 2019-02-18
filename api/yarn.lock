@@ -361,7 +361,7 @@
     rimraf "^2.6.2"
     tar "^4.4.6"
 
-"@tensorflow/tfjs@^0.15.2", "@tensorflow/tfjs@~0.15.1":
+"@tensorflow/tfjs@~0.15.1":
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs/-/tfjs-0.15.2.tgz#f7574e03f97fe4b6f5eaf2253c01b2732337cbce"
   integrity sha512-54XGiGKIdq41Ujc1m8sEFl+hh57UcClPrAT3RsAQuC4VPAAb8AEihwdzjalxS5MKBPK5aQEuTyPlKKjlRbXSCQ==
@@ -1566,6 +1566,11 @@ mem@^1.1.0:
   integrity sha1-Xt1StIXKHZAP5kiVUFOZoN+kX3Y=
   dependencies:
     mimic-fn "^1.0.0"
+
+micro-cors@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/micro-cors/-/micro-cors-0.1.1.tgz#af7a480182c114ffd1ada84ad9dffc52bb4f4054"
+  integrity sha512-6WqIahA5sbQR1Gjexp1VuWGFDKbZZleJb/gy1khNGk18a6iN1FdTcr3Q8twaxkV5H94RjxIBjirYbWCehpMBFw==
 
 micro-dev@^3.0.0:
   version "3.0.0"
