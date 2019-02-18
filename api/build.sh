@@ -2,4 +2,4 @@
 
 yum install -y gcc-c++
 
-yarn add @tensorflow/tfjs-node
+yarn add @tensorflow/tfjs-node --ignore-engines
