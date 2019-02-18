@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "object-detection",
+  "alias": ["object-detection.now.sh", "object-detection.sequence.work"],
+  "builds": [{ "src": "api/predict.js", "use": "@now/node" }]
+}
