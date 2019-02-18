@@ -1,8 +1,10 @@
-const tf = require('@tensorflow/tfjs-node')
+const tf = require('@tensorflow/tfjs')
 const { createCanvas, Image } = require('canvas')
 const contentType = require('content-type')
 const { send, buffer } = require('micro')
 const cors = require('micro-cors')()
+
+global.fetch = require('node-fetch')
 
 tf.disableDeprecationWarnings()
 
