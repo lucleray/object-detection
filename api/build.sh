@@ -1,5 +1,5 @@
 #!/bin/bash
 
-yum install -y gcc-c++ --skip-broken
+sudo yum groupinstall "Development Tools"
 
 yarn add @tensorflow/tfjs-node --ignore-engines
