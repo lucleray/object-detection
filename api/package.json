@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "micro-dev -p 3001 --dotenv ../.env"
+    "dev": "micro-dev -p 3001 --dotenv ../.env",
+    "now-build": "./build.sh"
   },
   "dependencies": {
-    "@tensorflow/tfjs-node": "^0.3.0",
     "canvas": "^2.3.1",
     "content-type": "^1.0.4",
     "micro": "^9.3.3",
@@ -15,7 +15,6 @@
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.15.2",
     "micro-dev": "^3.0.0"
   }
 }
