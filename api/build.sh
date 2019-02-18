@@ -1,7 +1,7 @@
 #!/bin/bash
 
-yum downgrade -y glibc-2.17-196.172.amzn1
-
-yum install -y gcc-c++
+yum install -y gcc64-c++ libcurl-devel
+export CC=gcc64
+export CXX=g++64
 
 yarn add @tensorflow/tfjs-node --ignore-engines
