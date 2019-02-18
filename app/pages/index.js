@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Dropzone from 'react-dropzone'
 
 const API_URL = process.env.API_URL
@@ -68,7 +68,7 @@ const Viewer = ({ file, objects }) => {
   )
 }
 
-async function fetchAPI(file, setObjects, setStatus) {
+async function fetchPredict(file, setObjects, setStatus) {
   setStatus('loading')
   setObjects([])
   const res = await fetch(`${API_URL}/predict`, {
@@ -84,10 +84,18 @@ async function fetchAPI(file, setObjects, setStatus) {
   setStatus('success')
 }
 
+async function fetchWarm() {
+  await fetch(`${API_URL}/warm`)
+}
+
 export default () => {
   const [file, setFile] = useState()
   const [status, setStatus] = useState('waiting')
   const [objects, setObjects] = useState([])
+
+  useEffect(() => {
+    fetchWarm()
+  }, [])
 
   return (
     <div>
@@ -102,7 +110,7 @@ export default () => {
             const file = acceptedFiles[0]
             file.src = URL.createObjectURL(file)
             setFile(file)
-            fetchAPI(file, setObjects, setStatus)
+            fetchPredict(file, setObjects, setStatus)
           }
         }}
       >
