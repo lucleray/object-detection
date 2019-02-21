@@ -1,7 +1,8 @@
 {
   "version": 2,
+  "public": true,
   "name": "object-detection",
-  "alias": ["object-detection.now.sh", "object-detection.sequence.work"],
+  "alias": "object-detection.sequence.work",
   "builds": [
     {
       "src": "api/index.js",
