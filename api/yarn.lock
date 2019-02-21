@@ -153,11 +153,6 @@
   resolved "https://registry.yarnpkg.com/@types/webgl2/-/webgl2-0.0.4.tgz#c3b0f9d6b465c66138e84e64cb3bdf8373c2c279"
   integrity sha512-PACt1xdErJbMUOUweSrbVM7gSIYm1vTncW2hF6Os/EeWi6TXYAYMPp+8v6rzHmypE5gHrxaxZNXgMkJVIdZpHw==
 
-"@zeit/ncc@^0.15.2":
-  version "0.15.2"
-  resolved "https://registry.yarnpkg.com/@zeit/ncc/-/ncc-0.15.2.tgz#14b232c2ecdb3a9c5923c34e83ef16e71c96387f"
-  integrity sha512-O5olWTrJ/b/gI1pxHgolV8Gwx0aA5BUCYIaAGcIHzIe55CMU+J1CgpRCRGzOLyqal7bV/l0quFgl8vcT8G3DTg==
-
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
