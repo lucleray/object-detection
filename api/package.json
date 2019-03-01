@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "micro-dev -p 3001 --dotenv ../.env",
-    "now-build": "rimraf node_modules/@tensorflow/tfjs-node/deps"
+    "now-build": "rimraf node_modules/@tensorflow/tfjs-node"
   },
   "dependencies": {
     "@tensorflow/tfjs-node": "^0.3.0",
