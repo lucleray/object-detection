@@ -12,7 +12,7 @@
     { "src": "app/package.json", "use": "@now/static-build" }
   ],
   "routes": [
-    { "src": "/api.*", "dest": "/api/index.js" },
+    { "src": "/api(.*)", "dest": "/api/index.js" },
     { "src": "(.*)", "dest": "/app$1" }
   ],
   "env": {
