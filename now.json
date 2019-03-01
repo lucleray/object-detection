@@ -13,6 +13,7 @@
     { "src": "build-tfjs/package.json", "use": "@now/static-build" }
   ],
   "routes": [
+    { "src": "/build-tfjs(.*)", "dest": "/build-tfjs$1" },
     { "src": "/api(.*)", "dest": "/api/index.js" },
     { "src": "(.*)", "dest": "/app$1" }
   ],
