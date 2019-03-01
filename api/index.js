@@ -31,23 +31,21 @@ async function loadTf(host) {
     await new Promise((resolve, reject) => {
       const x = tar.x({ cwd: '/tmp/tfjs-node' })
 
-      x.on('end', () => {
-        tf = requireFunc('/tmp/tfjs-node')
-        tf.disableDeprecationWarnings()
-        resolve()
-      })
-
+      x.on('end', resolve)
       x.on('error', reject)
 
       const req = https.get(
         { host: host, path: '/build-tfjs/tfjs-node.tar.gz' },
         res => {
-          res.pipe(zlib.Unzip()).pipe(x)
+          res.pipe(zlib.createGunzip()).pipe(x)
         }
       )
 
       req.on('error', reject)
     })
+
+    tf = requireFunc('/tmp/tfjs-node')
+    tf.disableDeprecationWarnings()
   } catch (err) {
     console.log(err)
     throw BadRequestError('Tensorflow not be loaded')
