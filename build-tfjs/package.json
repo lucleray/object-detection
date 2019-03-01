@@ -1,0 +1,12 @@
+{
+  "name": "build-tfjs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "now-build": "tar -zcf dist/tfjs-node.tar.gz node_modules/@tensorflow/tfjs-node/"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^0.3.1"
+  }
+}

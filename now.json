@@ -9,7 +9,8 @@
       "use": "@now/node",
       "config": { "maxLambdaSize": "50mb" }
     },
-    { "src": "app/package.json", "use": "@now/static-build" }
+    { "src": "app/package.json", "use": "@now/static-build" },
+    { "src": "build-tfjs/package.json", "use": "@now/static-build" }
   ],
   "routes": [
     { "src": "/api(.*)", "dest": "/api/index.js" },
