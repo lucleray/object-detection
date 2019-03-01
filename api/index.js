@@ -23,14 +23,14 @@ async function loadTf() {
   if (tf) return
 
   try {
-    await mkdir(join(__dirname, 'node_modules/tfjs-node'), { recursive: true })
+    await mkdir('/tmp/tfjs-node', { recursive: true })
 
     // download/unzip tfjs-node
     await new Promise((resolve, reject) => {
-      const x = tar.x({ cwd: 'node_modules/tfjs-node' })
+      const x = tar.x({ cwd: '/tmp/tfjs-node' })
 
       x.on('end', () => {
-        tf = require('tfjs-node')
+        tf = require('/tmp/tfjs-node')
         tf.disableDeprecationWarnings()
         resolve()
       })
