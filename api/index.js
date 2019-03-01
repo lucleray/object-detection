@@ -22,7 +22,7 @@ async function loadTf() {
   if (tf) return
 
   try {
-    await mkdir('tfjs-node', { recursive: true })
+    await mkdir('node_modules/tfjs-node', { recursive: true })
 
     // download/unzip tfjs-node
     await new Promise((resolve, reject) => {
