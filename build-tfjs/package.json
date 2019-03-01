@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "now-build": "tar -czf tfjs-node.tar.gz node_modules/@tensorflow/tfjs-node/ && mv tfjs-node.tar.gz dist/"
+    "now-build": "tar -czf tfjs-node.tar.gz node_modules/@tensorflow/tfjs-node/ && mkdir dist && mv tfjs-node.tar.gz dist/"
   },
   "dependencies": {
     "@tensorflow/tfjs-node": "^0.3.1"
