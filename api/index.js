@@ -4,7 +4,7 @@ const contentType = require('content-type')
 const { send, buffer } = require('micro')
 const cors = require('micro-cors')()
 
-// tf.disableDeprecationWarnings()
+tf.disableDeprecationWarnings()
 
 const CLASSES = require('./lib/classes')
 const { BadRequestError, handleError } = require('./lib/error')

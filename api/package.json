@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "micro-dev -p 3001 --dotenv ../.env"
+    "dev": "micro-dev -p 3001 --dotenv ../.env",
+    "now-build": "rimraf node_modules/@tensorflow/tfjs-node/deps"
   },
   "dependencies": {
-    "@tensorflow/tfjs-node": "0.1.21",
+    "@tensorflow/tfjs-node": "^0.3.0",
     "canvas": "^2.3.1",
     "content-type": "^1.0.4",
     "micro": "^9.3.3",
