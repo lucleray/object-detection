@@ -15,7 +15,6 @@
     "tar": "^4.4.8"
   },
   "devDependencies": {
-    "micro-dev": "^3.0.0",
-    "rimraf": "^2.6.3"
+    "micro-dev": "^3.0.0"
   }
 }

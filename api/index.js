@@ -26,10 +26,10 @@ async function loadTf() {
 
     // download/unzip tfjs-node
     await new Promise((resolve, reject) => {
-      const x = tar.x({ cwd: 'tfjs-node' })
+      const x = tar.x({ cwd: 'node_modules/tfjs-node' })
 
       x.on('end', () => {
-        tf = require('./tfjs-node')
+        tf = require('tfjs-node')
         tf.disableDeprecationWarnings()
         resolve()
       })
