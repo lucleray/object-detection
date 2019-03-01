@@ -11,7 +11,8 @@
     "content-type": "^1.0.4",
     "micro": "^9.3.3",
     "micro-cors": "^0.1.1",
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.3.0",
+    "tar": "^4.4.8"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0",

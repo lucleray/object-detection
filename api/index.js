@@ -1,10 +1,13 @@
-const tf = require('@tensorflow/tfjs-node')
 const { createCanvas, Image } = require('canvas')
 const contentType = require('content-type')
 const { send, buffer } = require('micro')
 const cors = require('micro-cors')()
 
-tf.disableDeprecationWarnings()
+const tar = require('tar')
+const zlib = require('zlib')
+const http = require('http')
+const { promisify } = require('util')
+const mkdir = promisify(require('fs').mkdir)
 
 const CLASSES = require('./lib/classes')
 const { BadRequestError, handleError } = require('./lib/error')
@@ -13,14 +16,46 @@ const TF_MODEL_URL = process.env.TF_MODEL_URL
 
 const CONTENT_TYPES_IMAGE = ['image/jpeg', 'image/png']
 
+let tf
+
+async function loadTf() {
+  if (tf) return
+
+  try {
+    await mkdir('tfjs-node', { recursive: true })
+
+    // download/unzip tfjs-node
+    await new Promise((resolve, reject) => {
+      const x = tar.x({ cwd: 'tfjs-node' })
+
+      x.on('end', () => {
+        tf = require('./tfjs-node')
+        tf.disableDeprecationWarnings()
+        resolve()
+      })
+
+      x.on('error', error => {
+        reject(error)
+      })
+
+      http.get('/build-tfjs/tfjs-node.tar.gz', res => {
+        res.pipe(zlib.Unzip()).pipe(x)
+      })
+    })
+  } catch (err) {
+    console.log(err)
+    throw BadRequestError('Tensorflow not be loaded')
+  }
+}
+
 let tfModelCache
 
 async function loadModel() {
-  try {
-    if (tfModelCache) {
-      return tfModelCache
-    }
+  if (tfModelCache) {
+    return tfModelCache
+  }
 
+  try {
     tfModelCache = await tf.loadFrozenModel(
       `${TF_MODEL_URL}/tensorflowjs_model.pb`,
       `${TF_MODEL_URL}/weights_manifest.json`
@@ -80,11 +115,13 @@ module.exports = cors(
     }
 
     if (req.url === '/api/warm') {
+      await loadTf()
       await loadModel()
       return send(res, 200)
     }
 
     if (req.url === '/api/predict') {
+      await loadModel()
       const tfModel = await loadModel()
 
       const { type: mimeType } = contentType.parse(req)
