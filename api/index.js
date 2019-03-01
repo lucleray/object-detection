@@ -5,7 +5,7 @@ const cors = require('micro-cors')()
 
 const tar = require('tar')
 const zlib = require('zlib')
-const http = require('http')
+const https = require('https')
 const { promisify } = require('util')
 const mkdir = promisify(require('fs').mkdir)
 
@@ -37,13 +37,16 @@ async function loadTf(host) {
         resolve()
       })
 
-      x.on('error', error => {
-        reject(error)
-      })
+      x.on('error', reject)
 
-      http.get(`https://${host}/build-tfjs/tfjs-node.tar.gz`, res => {
-        res.pipe(zlib.Unzip()).pipe(x)
-      })
+      const req = https.get(
+        { host: host, path: '/build-tfjs/tfjs-node.tar.gz' },
+        res => {
+          res.pipe(zlib.Unzip()).pipe(x)
+        }
+      )
+
+      req.on('error', reject)
     })
   } catch (err) {
     console.log(err)
