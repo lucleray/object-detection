@@ -8,6 +8,7 @@ const zlib = require('zlib')
 const http = require('http')
 const { promisify } = require('util')
 const mkdir = promisify(require('fs').mkdir)
+const { join } = require('path')
 
 const CLASSES = require('./lib/classes')
 const { BadRequestError, handleError } = require('./lib/error')
@@ -22,7 +23,7 @@ async function loadTf() {
   if (tf) return
 
   try {
-    await mkdir('node_modules/tfjs-node', { recursive: true })
+    await mkdir(join(__dirname, 'node_modules/tfjs-node'), { recursive: true })
 
     // download/unzip tfjs-node
     await new Promise((resolve, reject) => {
