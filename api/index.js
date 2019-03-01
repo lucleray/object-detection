@@ -8,7 +8,9 @@ const zlib = require('zlib')
 const http = require('http')
 const { promisify } = require('util')
 const mkdir = promisify(require('fs').mkdir)
-const { join } = require('path')
+
+const requireFunc =
+  typeof __webpack_require__ === 'function' ? __non_webpack_require__ : require
 
 const CLASSES = require('./lib/classes')
 const { BadRequestError, handleError } = require('./lib/error')
@@ -30,7 +32,7 @@ async function loadTf() {
       const x = tar.x({ cwd: '/tmp/tfjs-node' })
 
       x.on('end', () => {
-        tf = require('/tmp/tfjs-node')
+        tf = requireFunc('/tmp/tfjs-node')
         tf.disableDeprecationWarnings()
         resolve()
       })
