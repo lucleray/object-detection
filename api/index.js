@@ -21,7 +21,7 @@ const CONTENT_TYPES_IMAGE = ['image/jpeg', 'image/png']
 
 let tf
 
-async function loadTf() {
+async function loadTf(host) {
   if (tf) return
 
   try {
@@ -41,7 +41,7 @@ async function loadTf() {
         reject(error)
       })
 
-      http.get('/build-tfjs/tfjs-node.tar.gz', res => {
+      http.get(`https://${host}/build-tfjs/tfjs-node.tar.gz`, res => {
         res.pipe(zlib.Unzip()).pipe(x)
       })
     })
@@ -113,18 +113,20 @@ function findMax(array) {
 
 module.exports = cors(
   handleError(async (req, res) => {
+    const host = req.headers.host
+
     if (req.method === 'OPTIONS') {
       return send(res, 200)
     }
 
     if (req.url === '/api/warm') {
-      await loadTf()
+      await loadTf(host)
       await loadModel()
       return send(res, 200)
     }
 
     if (req.url === '/api/predict') {
-      await loadModel()
+      await loadTf(host)
       const tfModel = await loadModel()
 
       const { type: mimeType } = contentType.parse(req)
