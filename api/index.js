@@ -1,12 +1,8 @@
-const tf = require('@tensorflow/tfjs')
+const loadTf = require('tfjs-lambda')
 const { createCanvas, Image } = require('canvas')
 const contentType = require('content-type')
 const { send, buffer } = require('micro')
 const cors = require('micro-cors')()
-
-global.fetch = require('node-fetch')
-
-tf.disableDeprecationWarnings()
 
 const CLASSES = require('./lib/classes')
 const { BadRequestError, handleError } = require('./lib/error')
@@ -19,6 +15,8 @@ let tfModelCache
 
 async function loadModel() {
   try {
+    const tf = await loadTf()
+
     if (tfModelCache) {
       return tfModelCache
     }
@@ -35,6 +33,8 @@ async function loadModel() {
 }
 
 async function imgToTensor(imgBuffer) {
+  const tf = await loadTf()
+
   const img = new Image()
   const imgOnLoad = new Promise(resolve => {
     img.onload = resolve
@@ -55,6 +55,8 @@ async function imgToTensor(imgBuffer) {
 }
 
 async function predict(tfModel, tensor) {
+  const tf = await loadTf()
+
   const batched = await tf.tidy(() => tensor.expandDims())
   const result = await tfModel.executeAsync(batched)
   const scores = result[0].arraySync()[0]
@@ -82,11 +84,13 @@ module.exports = cors(
     }
 
     if (req.url === '/api/warm') {
+      await loadTf()
       await loadModel()
       return send(res, 200)
     }
 
     if (req.url === '/api/predict') {
+      const tf = await loadTf()
       const tfModel = await loadModel()
 
       const { type: mimeType } = contentType.parse(req)
