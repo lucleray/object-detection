@@ -1,8 +1,8 @@
 const loadTf = require('tfjs-lambda')
-const { createCanvas, Image } = require('canvas')
 const contentType = require('content-type')
 const { send, buffer } = require('micro')
 const cors = require('micro-cors')()
+const Jimp = require('jimp')
 
 const CLASSES = require('./lib/classes')
 const { BadRequestError, handleError } = require('./lib/error')
@@ -35,21 +35,11 @@ async function loadModel() {
 async function imgToTensor(imgBuffer) {
   const tf = await loadTf()
 
-  const img = new Image()
-  const imgOnLoad = new Promise(resolve => {
-    img.onload = resolve
-  })
-  img.src = imgBuffer
+  const image = await Jimp.read(imgBuffer)
+  const { width, height, data } = image.bitmap
+  const values = new Int32Array(data)
 
-  await imgOnLoad
-  const width = img.width
-  const height = img.height
-
-  const canvas = createCanvas(width, height)
-  const ctx = canvas.getContext('2d')
-  ctx.drawImage(img, 0, 0, width, height)
-
-  const tensor = await tf.tidy(() => tf.fromPixels(canvas))
+  const tensor = await tf.tidy(() => tf.tensor3d(values, [height, width, 4]))
 
   return { tensor, width, height }
 }
