@@ -11,7 +11,7 @@
     "jimp": "^0.6.0",
     "micro": "^9.3.3",
     "micro-cors": "^0.1.1",
-    "tfjs-lambda": "^0.0.6"
+    "tfjs-lambda": "^0.0.9"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0"
