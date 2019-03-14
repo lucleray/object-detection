@@ -21,10 +21,7 @@ async function loadModel() {
       return tfModelCache
     }
 
-    tfModelCache = await tf.loadFrozenModel(
-      `${TF_MODEL_URL}/tensorflowjs_model.pb`,
-      `${TF_MODEL_URL}/weights_manifest.json`
-    )
+    tfModelCache = await tf.loadGraphModel(`${TF_MODEL_URL}/model.json`)
     return tfModelCache
   } catch (err) {
     console.log(err)
@@ -37,9 +34,17 @@ async function imgToTensor(imgBuffer) {
 
   const image = await Jimp.read(imgBuffer)
   const { width, height, data } = image.bitmap
-  const values = new Int32Array(data)
 
-  const tensor = await tf.tidy(() => tf.tensor3d(values, [height, width, 4]))
+  const numPixels = width * height
+  const values = new Int32Array(numPixels * 3)
+
+  for (let i = 0; i < numPixels; i++) {
+    for (let c = 0; c < 3; c++) {
+      values[i * 3 + c] = data[i * 4 + c]
+    }
+  }
+
+  const tensor = await tf.tidy(() => tf.tensor3d(values, [height, width, 3]))
 
   return { tensor, width, height }
 }
