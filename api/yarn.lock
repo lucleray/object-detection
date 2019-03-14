@@ -1621,9 +1621,9 @@ ms@2.0.0:
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
 nan@^2.12.1, nan@^2.9.2:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
-  integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.13.0.tgz#7bdfc27dd3c060c46e60b62c72b74012d1a4cd68"
+  integrity sha512-5DDQvN0luhXdut8SCwzm/ZuAX2W+fwhqNzfq7CZ+OJzQ6NwpcqmIGyLD1R8MEt7BeErzcsI0JLr4pND2pNp2Cw==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -2381,10 +2381,10 @@ term-size@^1.2.0:
   dependencies:
     execa "^0.7.0"
 
-tfjs-lambda@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/tfjs-lambda/-/tfjs-lambda-0.0.9.tgz#fbb00769116d9173d99f34473fd9aa5b0257ca20"
-  integrity sha512-y12mqHBM8ikQFBn+GY1TDbG1sk9IZrdTyKUTWs2QHZ9488k66NAArDY0kRpB2+q/BbP+6ebY+iQ/RAuJKoHBwg==
+tfjs-lambda@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/tfjs-lambda/-/tfjs-lambda-0.0.10.tgz#059c6bea074438c049deb362ebf3ec83ca087150"
+  integrity sha512-a/JNO9+tEjLsIxX5Pebuss8QJG22uRNtCf1NXWScyeeY5q9rNiJGImEYlg6y0G7xMuAfq0Ms/2Ikiqt1/RkFFw==
   dependencies:
     iltorb "^2.4.2"
     tar "^4.4.8"
