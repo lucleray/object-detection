@@ -1,12 +1,8 @@
-const tf = require('@tensorflow/tfjs')
-const { createCanvas, Image } = require('canvas')
+const loadTf = require('tfjs-lambda')
 const contentType = require('content-type')
 const { send, buffer } = require('micro')
 const cors = require('micro-cors')()
-
-global.fetch = require('node-fetch')
-
-tf.disableDeprecationWarnings()
+const Jimp = require('jimp')
 
 const CLASSES = require('./lib/classes')
 const { BadRequestError, handleError } = require('./lib/error')
@@ -19,14 +15,13 @@ let tfModelCache
 
 async function loadModel() {
   try {
+    const tf = await loadTf()
+
     if (tfModelCache) {
       return tfModelCache
     }
 
-    tfModelCache = await tf.loadFrozenModel(
-      `${TF_MODEL_URL}/tensorflowjs_model.pb`,
-      `${TF_MODEL_URL}/weights_manifest.json`
-    )
+    tfModelCache = await tf.loadGraphModel(`${TF_MODEL_URL}/model.json`)
     return tfModelCache
   } catch (err) {
     console.log(err)
@@ -35,26 +30,28 @@ async function loadModel() {
 }
 
 async function imgToTensor(imgBuffer) {
-  const img = new Image()
-  const imgOnLoad = new Promise(resolve => {
-    img.onload = resolve
-  })
-  img.src = imgBuffer
+  const tf = await loadTf()
 
-  await imgOnLoad
-  const width = img.width
-  const height = img.height
+  const image = await Jimp.read(imgBuffer)
+  const { width, height, data } = image.bitmap
 
-  const canvas = createCanvas(width, height)
-  const ctx = canvas.getContext('2d')
-  ctx.drawImage(img, 0, 0, width, height)
+  const numPixels = width * height
+  const values = new Int32Array(numPixels * 3)
 
-  const tensor = await tf.tidy(() => tf.fromPixels(canvas))
+  for (let i = 0; i < numPixels; i++) {
+    for (let c = 0; c < 3; c++) {
+      values[i * 3 + c] = data[i * 4 + c]
+    }
+  }
+
+  const tensor = await tf.tidy(() => tf.tensor3d(values, [height, width, 3]))
 
   return { tensor, width, height }
 }
 
 async function predict(tfModel, tensor) {
+  const tf = await loadTf()
+
   const batched = await tf.tidy(() => tensor.expandDims())
   const result = await tfModel.executeAsync(batched)
   const scores = result[0].arraySync()[0]
@@ -82,11 +79,13 @@ module.exports = cors(
     }
 
     if (req.url === '/api/warm') {
+      await loadTf()
       await loadModel()
       return send(res, 200)
     }
 
     if (req.url === '/api/predict') {
+      const tf = await loadTf()
       const tfModel = await loadModel()
 
       const { type: mimeType } = contentType.parse(req)

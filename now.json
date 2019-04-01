@@ -7,7 +7,7 @@
     {
       "src": "api/index.js",
       "use": "@now/node",
-      "config": { "maxLambdaSize": "30mb" }
+      "config": { "maxLambdaSize": "50mb" }
     },
     { "src": "app/package.json", "use": "@now/static-build" }
   ],
