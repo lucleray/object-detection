@@ -2381,10 +2381,10 @@ term-size@^1.2.0:
   dependencies:
     execa "^0.7.0"
 
-tfjs-lambda@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/tfjs-lambda/-/tfjs-lambda-0.0.11.tgz#d2b4b9e1be14770ec65555eb369cfa927dda8f85"
-  integrity sha512-3PTN0L6WrpEtTSMEjp7YGgGFPpisJC45jsMfskd0jz2r3d8R4I6M7YpfWfzQRPZWdJ+IhBjTDdxmb639WclfTQ==
+tfjs-lambda@^0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/tfjs-lambda/-/tfjs-lambda-0.0.13.tgz#bff238d16eef228ef9a6faa22b6a53dd4b1cabd1"
+  integrity sha512-KVg1LMGS8ZwUhNti0QmkJ0AJAHq2Aj6wAltv7P+KyjJAh0OF2+1ENApxhQkR86H8UY8uCeU6HF2Zkfv1rrtpjA==
   dependencies:
     iltorb "^2.4.2"
     tar "^4.4.8"
