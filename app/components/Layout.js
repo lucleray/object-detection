@@ -12,6 +12,7 @@ const Layout = ({ sidebar, children }) => (
         left: 0;
         border-right: 1px solid #ccc;
         background: white;
+        overflow: auto;
       }
       .main {
         position: fixed;
