@@ -22,6 +22,18 @@ const Layout = ({ sidebar, children }) => (
         right: 0;
         background: #eee;
       }
+      @media screen and (max-width: 1000px) {
+        .sidebar {
+          position: relative;
+          width: 100%;
+          height: auto;
+          border-right: 0;
+        }
+        .main {
+          position: relative;
+          width: 100%;
+        }
+      }
     `}</style>
   </div>
 )

@@ -1,15 +1,4 @@
-import React, { useState } from 'react'
-
-const scaleView = (
-  { naturalWidth, naturalHeight, width, height },
-  setScale
-) => {
-  if (naturalWidth > naturalHeight) {
-    setScale(width / naturalWidth)
-  } else {
-    setScale(height / naturalHeight)
-  }
-}
+import React, { useState, useRef, useEffect } from 'react'
 
 const LabelBox = ({ x, y, scale, children }) => (
   <g transform={`translate(${x} ${y}) scale(${1 / scale})`}>
@@ -52,19 +41,43 @@ const LabelBox = ({ x, y, scale, children }) => (
 
 const Viewer = ({ file, objects, status }) => {
   const [scale, setScale] = useState()
+  const translateX = 30
+  const translateY = 30
+
+  const divEl = useRef(null)
+  const imgEl = useRef(null)
+
+  const scaleView = () => {
+    if (!imgEl.current || !divEl.current) return
+
+    const { naturalWidth, naturalHeight } = imgEl.current
+    const { width, height } = divEl.current.getBoundingClientRect()
+
+    const minScaleX = (width - translateX * 2) / naturalWidth
+    const minScaleY = (height - translateY * 2) / naturalHeight
+
+    setScale(Math.min(minScaleX, minScaleY, 1))
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', scaleView)
+    return () => {
+      window.removeEventListener('resize', scaleView)
+    }
+  }, [])
+
+  const transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`
 
   return (
-    <div>
+    <div ref={divEl} className={'viewer ' + (file ? 'open' : '')}>
       {file && (
-        <img onLoad={e => scaleView(e.target, setScale)} src={file.src} />
+        <div className="img-container" style={{ transform }}>
+          <img ref={imgEl} onLoad={scaleView} src={file.src} />
+        </div>
       )}
       {scale && (
         <svg>
-          <g
-            style={{
-              transform: `scale(${scale})`
-            }}
-          >
+          <g style={{ transform }}>
             {objects.map(obj => {
               const [{ x, y }, { x: x1, y: y1 }] = obj.bbox
               return (
@@ -93,26 +106,32 @@ const Viewer = ({ file, objects, status }) => {
         </div>
       )}
       <style jsx>{`
-        div {
+        .viewer {
           position: relative;
+          width: 100%;
+          height: 100%;
         }
-        img,
+        .img-container,
         svg,
         .loading {
           position: absolute;
           top: 0;
           left: 0;
-        }
-        img {
-          max-width: 100%;
-          max-height: 100%;
-          ${status === 'loading' ? 'filter: blur(60px)' : ''}
-        }
-        svg,
-        div,
-        .loading {
           width: 100%;
           height: 100%;
+        }
+        .img-container {
+          transform-origin: 0 0;
+        }
+        img {
+          max-width: none;
+          max-height: none;
+          ${status === 'loading' ? 'filter: blur(60px);' : ''}
+        }
+        @media screen and (max-width: 1000px) {
+          .viewer.open {
+            height: 500px;
+          }
         }
         .loading {
           background: rgba(0, 0, 0, 0.2);

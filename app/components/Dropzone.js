@@ -34,6 +34,7 @@ const Dropzone = ({ setStatus, setFile, setObjects, fetchPredict }) => (
         padding: 50px;
         text-align: center;
         margin-bottom: 2em;
+        width: 200px;
       }
       .dropzone > p {
         text-transform: uppercase;
