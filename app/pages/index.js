@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Layout from '../components/Layout'
 import Viewer from '../components/Viewer'
 import Dropzone from '../components/Dropzone'
+import Head from 'next/head'
 
 const API_URL = process.env.API_URL
 
 async function fetchPredict(file, setObjects, setStatus) {
   setStatus('loading')
+  window.scrollTo(0, 0)
   setObjects([])
   const res = await fetch(`${API_URL}/predict`, {
     method: 'POST',
@@ -151,6 +153,9 @@ export default () => {
 
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <Layout
         sidebar={
           <>
