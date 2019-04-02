@@ -159,9 +159,9 @@ export default () => {
       <Layout
         sidebar={
           <>
-            {/* <h1>Object Detection</h1> */}
+            <h1>Object-Detection</h1>
 
-            <h2>Drop an image</h2>
+            <h2>Upload an image</h2>
             <Dropzone
               setStatus={setStatus}
               setFile={setFile}
@@ -191,12 +191,12 @@ export default () => {
           font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
         }
         h1 {
-          margin-bottom: 0.7em;
+          margin-bottom: 1em;
           font-weight: bold;
-          text-transform: uppercase;
-          font-size: 1.5em;
-          border-bottom: 1px solid black;
-          padding-bottom: 0.5em;
+          font-size: 1.3em;
+          padding-bottom: 0.8em;
+          color: #555;
+          border-bottom: 1px solid #eee;
         }
         h2 {
           margin-bottom: 1em;

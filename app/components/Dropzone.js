@@ -21,7 +21,7 @@ const Dropzone = ({ setStatus, setFile, setObjects, fetchPredict }) => (
         return (
           <div {...getRootProps()} className="dropzone">
             <input {...getInputProps()} />
-            <p>Drag an image here</p>
+            <p>Drop an image here</p>
             <p>(png/jpeg)</p>
           </div>
         )
