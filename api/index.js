@@ -72,6 +72,42 @@ function findMax(array) {
   }, {})
 }
 
+async function tensorsToBBoxes({ scores, boxes, width, height }) {
+  const tf = await loadTf()
+
+  const maxScores = scores.map(findMax)
+
+  const indexTensor = tf.tidy(() => {
+    const boxes2 = tf.tensor2d(boxes, [1917, 4])
+    return tf.image.nonMaxSuppression(
+      boxes2,
+      maxScores.map(x => x.item),
+      20,
+      0.5,
+      0.5
+    )
+  })
+
+  const indexes = indexTensor.arraySync()
+  indexTensor.dispose()
+
+  const bboxes = indexes.map(index => {
+    return {
+      bbox: [
+        { x: boxes[index * 4 + 1] * width, y: boxes[index * 4] * height },
+        {
+          x: boxes[index * 4 + 3] * width,
+          y: boxes[index * 4 + 2] * height
+        }
+      ],
+      score: maxScores[index].item,
+      class: CLASSES[maxScores[index].index + 1].displayName
+    }
+  })
+
+  return bboxes
+}
+
 module.exports = cors(
   handleError(async (req, res) => {
     if (req.method === 'OPTIONS') {
@@ -96,35 +132,7 @@ module.exports = cors(
 
         const { scores, boxes } = await predict(tfModel, tensor)
 
-        const maxScores = scores.map(findMax)
-
-        const indexTensor = tf.tidy(() => {
-          const boxes2 = tf.tensor2d(boxes, [1917, 4])
-          return tf.image.nonMaxSuppression(
-            boxes2,
-            maxScores.map(x => x.item),
-            20,
-            0.5,
-            0.5
-          )
-        })
-
-        const indexes = indexTensor.arraySync()
-        indexTensor.dispose()
-
-        const bboxes = indexes.map(index => {
-          return {
-            bbox: [
-              { x: boxes[index * 4 + 1] * width, y: boxes[index * 4] * height },
-              {
-                x: boxes[index * 4 + 3] * width,
-                y: boxes[index * 4 + 2] * height
-              }
-            ],
-            score: maxScores[index].item,
-            class: CLASSES[maxScores[index].index + 1].displayName
-          }
-        })
+        const bboxes = await tensorsToBBoxes({ scores, boxes, width, height })
 
         return send(res, 200, bboxes)
       }
