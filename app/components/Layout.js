@@ -1,9 +1,7 @@
 const Layout = ({ sidebar, children }) => (
   <div className="container">
     <div className="main">{children}</div>
-    <div className="sidebar">
-      <div className="padding">{sidebar}</div>
-    </div>
+    <div className="sidebar">{sidebar}</div>
     <style jsx>{`
       .container {
         width: 100%;
@@ -17,9 +15,6 @@ const Layout = ({ sidebar, children }) => (
         border-right: 1px solid #ccc;
         background: white;
         overflow: auto;
-      }
-      .padding {
-        padding: 30px 40px;
       }
       .main {
         position: fixed;

@@ -159,23 +159,37 @@ export default () => {
       <Layout
         sidebar={
           <>
-            <h1>Object-Detection</h1>
+            {status === 'error' && (
+              <div className="alert-red">
+                <div className="alert-content">The API returned an error</div>
+              </div>
+            )}
+            {status === 'success' && objects.length === 0 && (
+              <div className="alert-orange">
+                <div className="alert-content">
+                  No objects detected on this image
+                </div>
+              </div>
+            )}
+            <div className="padding">
+              <h1>Object-Detection</h1>
 
-            <h2>Upload an image</h2>
-            <Dropzone
-              setStatus={setStatus}
-              setFile={setFile}
-              setObjects={setObjects}
-              fetchPredict={fetchPredict}
-            />
+              <h2>Upload an image</h2>
+              <Dropzone
+                setStatus={setStatus}
+                setFile={setFile}
+                setObjects={setObjects}
+                fetchPredict={fetchPredict}
+              />
 
-            <h2>Or choose an example image</h2>
-            <Examples
-              setFile={setFile}
-              setStatus={setStatus}
-              setObjects={setObjects}
-              fetchPredict={fetchPredict}
-            />
+              <h2>Or choose an example image</h2>
+              <Examples
+                setFile={setFile}
+                setStatus={setStatus}
+                setObjects={setObjects}
+                fetchPredict={fetchPredict}
+              />
+            </div>
           </>
         }
       >
@@ -202,6 +216,22 @@ export default () => {
           margin-bottom: 1em;
           font-weight: bold;
           font-size: 1.3em;
+        }
+        .alert-orange {
+          background: rgba(255, 127, 80, 1);
+          color: white;
+        }
+        .alert-red {
+          background: rgba(255, 0, 0, 0.8);
+          color: white;
+        }
+        .alert-content {
+          padding: 10px 25px 15px 25px;
+          text-align: center;
+          font-weight: bold;
+        }
+        .padding {
+          padding: 30px 40px;
         }
       `}</style>
     </>
