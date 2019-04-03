@@ -131,14 +131,35 @@ const Examples = props => {
       ))}
       <div className="float-reset" />
       <style jsx>{`
-        div {
-          margin-bottom: 2em;
-        }
         .float-reset {
           clear: both;
+          margin-bottom: 2em;
         }
       `}</style>
     </div>
+  )
+}
+
+const APIUsage = () => {
+  return (
+    <pre>
+      <code>{`curl -X POST https://object-detection.now.sh/api/predict \\
+  -H 'content-type: image/jpeg' \\
+  --data-binary "@my_image.jpeg"`}</code>
+      <style jsx>{`
+        pre {
+          color: rgb(214, 222, 235);
+          line-height: 1.45;
+          font-size: 1.1em;
+          font-family: Hack, monospace;
+          background: rgb(1, 22, 39);
+          padding: 16px;
+          overflow: auto;
+          border-radius: 3px;
+          margin-bottom: 2em;
+        }
+      `}</style>
+    </pre>
   )
 }
 
@@ -194,6 +215,9 @@ export default () => {
                 setObjects={setObjects}
                 fetchPredict={fetchPredict}
               />
+
+              <h2>API Usage</h2>
+              <APIUsage />
             </div>
           </>
         }
