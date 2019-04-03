@@ -2,7 +2,6 @@
   "version": 2,
   "public": true,
   "name": "object-detection",
-  "alias": "object-detection.now.sh",
   "builds": [
     {
       "src": "api/index.js",
