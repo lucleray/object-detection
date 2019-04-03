@@ -154,6 +154,11 @@ export default () => {
   return (
     <>
       <Head>
+        <title>Object Detection - An API to detect objects on images</title>
+        <meta
+          name="description"
+          content="An API to detect objects on images using tensorflow-js and Zeit Now"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Layout
