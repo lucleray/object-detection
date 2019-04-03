@@ -1,6 +1,12 @@
 import ReactDropzone from 'react-dropzone'
 
-const Dropzone = ({ setStatus, setFile, setObjects, fetchPredict }) => (
+const Dropzone = ({
+  setStatus,
+  setFile,
+  setObjects,
+  fetchPredict,
+  setError
+}) => (
   <>
     <ReactDropzone
       accept="image/jpeg,image/png"
@@ -8,6 +14,13 @@ const Dropzone = ({ setStatus, setFile, setObjects, fetchPredict }) => (
       multiple={false}
       onDrop={(acceptedFiles, rejectedFiles) => {
         if (acceptedFiles.length !== 1 || rejectedFiles.length > 0) {
+          if (rejectedFiles.length > 1) {
+            setError('You can only upload one file at a time')
+          } else if (rejectedFiles[0].size > 5 * 1024 * 1024) {
+            setError('The file size exceeds the 5mb limit')
+          } else {
+            setError('The file selected is not a valid file')
+          }
           setStatus('error')
         } else {
           const file = acceptedFiles[0]

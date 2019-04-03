@@ -27,7 +27,8 @@ async function fetchWarm() {
   await fetch(`${API_URL}/warm`)
 }
 
-function shuffle(a) {
+function shuffle(arr) {
+  const a = [...arr]
   var j, x, i
   for (i = a.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1))
@@ -40,6 +41,7 @@ function shuffle(a) {
 
 const ExampleImage = ({
   src,
+  topic,
   setStatus,
   setFile,
   setObjects,
@@ -62,6 +64,7 @@ const ExampleImage = ({
         <div className="img-frame show">
           <img
             src={img.src}
+            alt={`A ${topic}`}
             onClick={() => {
               setFile(img)
               fetchPredict(img, setObjects, setStatus)
@@ -87,6 +90,7 @@ const ExampleImage = ({
           box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.1);
           opacity: 0;
           transition: 0.7s ease-in;
+          cursor: pointer;
         }
         .img-frame.show {
           opacity: 1;
@@ -102,7 +106,7 @@ const ExampleImage = ({
   )
 }
 
-const topics = [
+const TOPICS = [
   'cat',
   'banana',
   'plane',
@@ -114,18 +118,32 @@ const topics = [
   'surfboard',
   'wine',
   'pizza',
-  'chair'
+  'chair',
+  'traffic light',
+  'boat',
+  'bench',
+  'bear',
+  'elephant',
+  'skateboard',
+  'sandwich',
+  'apple',
+  'hot dog',
+  'donut',
+  'oven',
+  'clock',
+  'teddy bear',
+  'toothbrush',
+  'suit case'
 ]
 
-shuffle(topics)
-
-const Examples = props => {
+const Examples = ({ topics, ...props }) => {
   return (
     <div>
       {topics.slice(0, 6).map(topic => (
         <ExampleImage
           key={topic}
           src={`https://source.unsplash.com/500x500/?${topic}`}
+          topic={topic}
           {...props}
         />
       ))}
@@ -166,7 +184,9 @@ const APIUsage = () => {
 export default () => {
   const [file, setFile] = useState()
   const [status, setStatus] = useState('waiting')
+  const [error, setError] = useState(null)
   const [objects, setObjects] = useState([])
+  const [topics, setTopics] = useState(shuffle(TOPICS))
 
   useEffect(() => {
     fetchWarm()
@@ -187,7 +207,9 @@ export default () => {
           <>
             {status === 'error' && (
               <div className="alert-red">
-                <div className="alert-content">The API returned an error</div>
+                <div className="alert-content">
+                  {error || 'The API returned an error'}
+                </div>
               </div>
             )}
             {status === 'success' && objects.length === 0 && (
@@ -206,10 +228,21 @@ export default () => {
                 setFile={setFile}
                 setObjects={setObjects}
                 fetchPredict={fetchPredict}
+                setError={setError}
               />
 
-              <h2>Or choose an example image</h2>
+              <h2>
+                Or choose an example image (
+                <button
+                  className="link"
+                  onClick={() => setTopics(shuffle(TOPICS))}
+                >
+                  refresh?
+                </button>
+                )
+              </h2>
               <Examples
+                topics={topics}
                 setFile={setFile}
                 setStatus={setStatus}
                 setObjects={setObjects}
@@ -218,6 +251,29 @@ export default () => {
 
               <h2>API Usage</h2>
               <APIUsage />
+
+              <h2>How does it work?</h2>
+
+              <p className="mb">
+                You can read more on{' '}
+                <a href="#">the dedicated article on Zeit's blog</a> or in the
+                code{' '}
+                <a href="https://github.com/sequencework/object-detection">
+                  available on Github.
+                </a>
+              </p>
+
+              <p className="mb">
+                Made by{' '}
+                <a
+                  href="https://twitter.com/lucleray"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  @lucleray
+                </a>
+                .
+              </p>
             </div>
           </>
         }
@@ -261,6 +317,25 @@ export default () => {
         }
         .padding {
           padding: 30px 40px;
+        }
+        button.link,
+        a {
+          color: rgb(32, 89, 246);
+          border-bottom: 1px solid rgba(32, 89, 246, 0.9);
+          border-top: 0;
+          border-left: 0;
+          border-right: 0;
+          text-decoration: none;
+          font-size: inherit;
+          font-weight: inherit;
+          cursor: pointer;
+        }
+        p {
+          line-height: 1.5em;
+          font-size: 1.1em;
+        }
+        p.mb {
+          margin-bottom: 1em;
         }
       `}</style>
     </>
