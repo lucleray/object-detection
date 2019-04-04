@@ -256,8 +256,10 @@ export default () => {
 
               <p className="mb">
                 You can read more on{' '}
-                <a href="#">the dedicated article on ZEIT's blog</a> or in the
-                code{' '}
+                <a href="https://zeit.co/blog/serverless-machine-learning">
+                  the dedicated article on ZEIT's blog
+                </a>{' '}
+                or in the code{' '}
                 <a href="https://github.com/lucleray/object-detection">
                   available on Github.
                 </a>
