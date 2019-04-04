@@ -256,7 +256,7 @@ export default () => {
 
               <p className="mb">
                 You can read more on{' '}
-                <a href="#">the dedicated article on Zeit's blog</a> or in the
+                <a href="#">the dedicated article on ZEIT's blog</a> or in the
                 code{' '}
                 <a href="https://github.com/lucleray/object-detection">
                   available on Github.
