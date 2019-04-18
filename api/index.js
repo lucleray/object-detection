@@ -121,12 +121,12 @@ module.exports = cors(
     }
 
     if (req.url === '/api/predict') {
-      const tf = await loadTf()
-      const tfModel = await loadModel()
-
       const { type: mimeType } = contentType.parse(req)
 
       if (CONTENT_TYPES_IMAGE.includes(mimeType)) {
+        const tf = await loadTf()
+        const tfModel = await loadModel()
+        
         const buf = await buffer(req, { limit: '5mb' })
         const { tensor, width, height } = await imgToTensor(buf)
 
