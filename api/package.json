@@ -16,5 +16,8 @@
   "devDependencies": {
     "@tensorflow/tfjs-node": "^1.0.2",
     "micro-dev": "^3.0.0"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
