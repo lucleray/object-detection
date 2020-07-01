@@ -6,7 +6,7 @@ An API and an app to detect objects on images.
 
 [![Deploy to Vercel](https://zeit.co/button)](https://vercel.com/new/project?template=lucleray/object-detection)
 
-### 👉 [Demo here](https://object-detection.now.sh)
+### 👉 [Demo here](https://object-detection.vercel.app)
 
 ![Screenshot of the app](screenshot.png)
 
