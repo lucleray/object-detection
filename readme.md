@@ -2,15 +2,15 @@
 
 An API and an app to detect objects on images.
 
-**Deploy on ZEIT Now:**
+**Deploy on Vercel:**
 
-[![Deploy to ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=lucleray/object-detection)
+[![Deploy to Vercel](https://zeit.co/button)](https://vercel.com/new/project?template=lucleray/object-detection)
 
 ### 👉 [Demo here](https://object-detection.now.sh)
 
 ![Screenshot of the app](screenshot.png)
 
-If you want to read more about how this was made, [read the detailed article about it on ZEIT's blog](https://zeit.co/blog/serverless-machine-learning).
+If you want to read more about how this was made, [read the detailed article about it on Vercel's blog](https://zeit.co/blog/serverless-machine-learning).
 
 The repository contains two folders:
 
